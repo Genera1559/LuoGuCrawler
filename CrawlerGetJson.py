@@ -44,7 +44,7 @@ def analysis(text):
     
 def save(soup,i):
     content = str(soup)
-    cfilename = "D:\\Database\\1261640141\\FileRecv\\Term3\\软件工程\\洛谷爬虫\\Json\\content"+str(i)+".json"
+    cfilename = "Json\\content"+str(i)+".json"
     content = content.replace('\\', '\\\\')
     #json.loads(content)
     file = open(cfilename,"w",encoding="utf-8")
