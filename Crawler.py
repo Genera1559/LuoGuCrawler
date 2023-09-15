@@ -8,8 +8,7 @@ import urllib.parse
 baseUrl = "https://www.luogu.com.cn/problem"
 savePath = "洛谷题库\\"
 secondPath = ["入门/","普及/","普及&提高-/","普及+&提高/","提高+&省选/","省选&NOI-/","NOI&NOI+&CTSC/"]
-minnum = 1020
-maxnum = 1080
+
 
 def main(PID,num):
     
