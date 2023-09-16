@@ -2,8 +2,10 @@ import re
 import requests
 import bs4
 import urllib.parse
-
-
+from fake_useragent import UserAgent
+import random
+#写死一个ip池
+IPPool = ["27.151.98.122:8888","27.151.99.123:8888","27.151.99.123:8888","27.151.89.124:8888","27.151.56.129:8888","27.151.59.183:8888","27.151.156.123:8888","27.151.41.133:8888","27.151.78.126:8888","27.151.51.233:8888"]
 
 baseUrl = "https://www.luogu.com.cn/problem"
 savePath = "洛谷题库\\"
@@ -42,10 +44,18 @@ def crawler(PID,num):
     return 0
 
 def getProblemHTML(url):
+    i = random.randint(0,9)
+    proxies = {
+            'http': 'http://{}'.format(IPPool[i]),
+            #'https': 'https://{}'.format(IPPool[i])
+        }
+    print(proxies)
+
     #伪装自己是浏览器
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.76"
+        "user-agent":UserAgent().Random
     }
+    print(headers)
     r = requests.get(url = url,headers = headers)
     r.encoding = 'utf-8'
     if str(r).find("200") == 11:#正确返回的话状态码为200
@@ -59,6 +69,7 @@ def getProblemHTML(url):
     
 
 def getSolutionHTML(url):
+    #i = random.randint(0,4)
     #不知道具体需要哪些头字段所以直接全写了
     headers = {
         "authority":"www.luogu.com.cn",
@@ -78,7 +89,7 @@ def getSolutionHTML(url):
         #Sec-Fetch-Site:same-origin
         #Sec-Fetch-User:?1
         "Upgrade-Insecure-Requests":"1",
-        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.76"
+        "User-Agent":UserAgent().Random,
     }
     r = requests.get(url = url,headers = headers)
     #r.encoding = 'ISO-8859-1'
